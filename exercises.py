@@ -12,11 +12,10 @@ def test_reverse_list():
 # ------------------------------------------------------------------------------
 
 def reverse_string(s):
-    """
-    Reverses order of characters in string s.
-    """
-    return None
-
+    s2=""
+    for i in range(len(s)):
+            s2+=s[len(s)-i-1]
+    return s2
 
 def test_reverse_string():
     assert reverse_string("foobar") == "raboof"
