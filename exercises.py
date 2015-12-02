@@ -100,12 +100,8 @@ def test_get_word_lengths():
 # ------------------------------------------------------------------------------
 
 def find_longest_word(s):
-    """
-    Returns the longest word in string s.
-    In case there are several, return the first.
-    """
-    return None
-
+    a=max(s.split(' '), key=len)
+    return a
 
 def test_find_longest_word():
     text = "Three tomatoes are walking down the street"
@@ -115,14 +111,17 @@ def test_find_longest_word():
 
 
 # ------------------------------------------------------------------------------
-
 def validate_dna(s):
-    """
-    Return True if the DNA string only contains characters
-    a, c, t, or g (lower or uppercase). False otherwise.
-    """
-    return None
-
+    a=len(s)
+    b=0
+    for element in s:
+        if element in "agctAGCT":
+            b=b+1
+    if a==b:
+        answer = True
+    else:
+        answer = False
+    return answer
 
 def test_validate_dna():
     assert validate_dna('CCGGAAGAGCTTACTTAGccggaagagcttacttag')
@@ -130,15 +129,19 @@ def test_validate_dna():
 
 
 # ------------------------------------------------------------------------------
-
 def base_pair(c):
-    """
-    Return the corresponding character (lowercase)
-    of the base pair. If the base is not recognized,
-    return 'unknown'.
-    """
-    return None
-
+    bp = ''
+    if c in 'aA':
+        bp = 't'
+    elif c in 'tT':
+        bp = 'a'
+    elif c in 'gG':
+        bp = 'c'
+    elif c in 'cC':
+        bp = 'g'
+    else:
+        bp = 'unknown'
+    return bp
 
 def test_base_pair():
     assert base_pair('a') == 't'
@@ -154,14 +157,14 @@ def test_base_pair():
 
 
 # ------------------------------------------------------------------------------
-
 def transcribe_dna_to_rna(s):
-    """
-    Return string s with each letter T replaced by U.
-    Result is always uppercase.
-    """
-    return None
-
+    rna_string=""
+    for element in s:
+    	if element in 'tT':
+    	    rna_string += 'U'
+    	else:
+    	    rna_string += element.upper()
+    return rna_string
 
 def test_transcribe_dna_to_rna():
     dna = 'CCGGAAGAGCTTACTTAGccggaagagcttacttag'
