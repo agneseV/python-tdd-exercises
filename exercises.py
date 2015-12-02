@@ -48,11 +48,11 @@ def test_is_english_vowel():
 # ------------------------------------------------------------------------------
 
 def count_num_vowels(s):
-    """
-    Returns the number of vowels in a string s.
-    """
-    return None
-
+    nr=0
+    for element in s:
+    	if element in "euioayEYUIOA":
+    		nr=nr+1
+    return nr
 
 def test_count_num_vowels():
     sentence = "hey ho let's go"
@@ -70,10 +70,12 @@ def test_count_num_vowels():
 # ------------------------------------------------------------------------------
 
 def histogram(l):
-    """
-    Converts a list of integers into a simple string histogram.
-    """
-    return None
+    hist=""
+    for i in l:
+        hist+=('#'*i)
+        hist+=('\n')
+    hist=hist[:-1]
+    return hist
 
 
 def test_histogram():
@@ -83,11 +85,11 @@ def test_histogram():
 # ------------------------------------------------------------------------------
 
 def get_word_lengths(s):
-    """
-    Returns a list of integers representing
-    the word lengths in string s.
-    """
-    return None
+    list=s.split(sep=' ')
+    word_length=[]
+    for i in list:
+    	word_length.append (len(i))
+    return word_length
 
 
 def test_get_word_lengths():
