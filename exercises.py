@@ -172,14 +172,18 @@ def test_transcribe_dna_to_rna():
 
 
 # ------------------------------------------------------------------------------
-
-def get_complement(s):
-    """
-    Return the DNA complement in uppercase
-    (A -> T, T-> A, C -> G, G-> C).
-    """
-    return None
-
+def get_complement(s):    
+    complement = ""
+    for element in s:
+        if element in 'aA':
+            complement += 'T'
+        elif element in 'tT':
+            complement += 'A'
+        elif element in 'gG':
+            complement += 'C'
+        elif element in 'cC':
+            complement += 'G'
+    return complement
 
 def test_get_complement():
     assert get_complement('CCGGAAGAGCTTACTTAG') == 'GGCCTTCTCGAATGAATC'
@@ -189,12 +193,17 @@ def test_get_complement():
 # ------------------------------------------------------------------------------
 
 def get_reverse_complement(s):
-    """
-    Return the reverse complement of string s
-    (complement reversed in order).
-    """
-    return None
-
+    complement = ""
+    for element in s:
+        if element in 'aA':
+            complement += 'T'
+        elif element in 'tT':
+            complement += 'A'
+        elif element in 'gG':
+            complement += 'C'
+        elif element in 'cC':
+            complement += 'G'
+    return complement[::-1]
 
 def test_get_reverse_complement():
     assert get_reverse_complement('CCGGAAGAGCTTACTTAG') == 'CTAAGTAAGCTCTTCCGG'
@@ -204,11 +213,8 @@ def test_get_reverse_complement():
 # ------------------------------------------------------------------------------
 
 def remove_substring(substring, string):
-    """
-    Returns string with all occurrences of substring removed.
-    """
-    return None
-
+    a=string.replace(substring,"")
+    return a
 
 def test_remove_substring():
     assert remove_substring('GAA', 'CCGGAAGAGCTTACTTAG') == 'CCGGAGCTTACTTAG'
@@ -220,13 +226,12 @@ def test_remove_substring():
 # ------------------------------------------------------------------------------
 
 def get_position_indices(triplet, dna):
-    """
-    Returns list of position indices for a specific triplet (3-mer)
-    in a DNA sequence. We start counting from 0
-    and jump by 3 characters from one position to the next.
-    """
-    return None
-
+    triplet_indexes=[]
+    triplets = [dna[i:i+3] for i in range(0, len(dna), 3)]
+    for i, j in enumerate(triplets):
+        if j == triplet:
+            triplet_indexes.append(i)
+    return triplet_indexes
 
 def test_get_position_indices():
     assert get_position_indices('GAA', 'CCGGAAGAGCTTACTTAG') == [1]
@@ -236,16 +241,13 @@ def test_get_position_indices():
 # ------------------------------------------------------------------------------
 
 def get_3mer_usage_chart(s):
-    """
-    This routine implements a 'sliding window'
-    and extracts all possible consecutive 3-mers.
-    It counts how often they appear and returns
-    a list of tuples with (name, occurrence).
-    The list is alphabetically sorted by the name
-    of the 3-mer.
-    """
-    return None
-
+    result=[]
+    a = sorted([s[i:i+3] for i in range(len(s)-2)])
+    b =sorted(set(a))
+    for i in b:
+        c=a.count(i)
+        result.append((i,c))
+    return result
 
 def test_get_3mer_usage_chart():
     s = 'CCGGAAGAGCTTACTTAGGAAGAA'
@@ -269,14 +271,13 @@ def test_get_3mer_usage_chart():
 
 
 # ------------------------------------------------------------------------------
-
 def read_column(file_name, column_number):
-    """
-    Reads column column_number from file file_name
-    and returns the values as floats in a list.
-    """
-    return None
-
+    output=[]
+    with open(file_name, 'r') as f:
+        for line in f:
+            l=line.split()    
+            output.append(l[1])
+    return output
 
 def test_read_column():
 
@@ -304,18 +305,15 @@ def test_read_column():
 
 
 # ------------------------------------------------------------------------------
-
 def character_statistics(file_name):
-    """
-    Reads text from file file_name, then
-    lowercases the text, and then returns
-    a tuple (x, y), where x is the most abundant
-    and y is the least abundant character found.
-    Use the isalpha() method to figure out
-    whether the character is in the alphabet.
-    """
-    return None
-
+    from string import ascii_lowercase
+    with open(file) as f:
+        text = s.lower(f.read().strip())
+        dic = {}
+        for x in ascii_lowercase:
+            dic[x] = text.count(x)
+...
+ 
 
 def test_character_statistics():
 
@@ -392,4 +390,6 @@ def pythagorean_triples(n):
 # ------------------------------------------------------------------------------
 
 def test_pythagorean_triples():
-    pass  # so far we do not test anything, check also test coverage
+    assert pythagorean_triples(5) == [(3,4,5)]
+    assert pythagorean_triples(15) == [(3,4,5),(6,8,10),(5,12,13),(9,12,15)]
+
