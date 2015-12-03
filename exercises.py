@@ -275,8 +275,8 @@ def read_column(file_name, column_number):
     output=[]
     with open(file_name, 'r') as f:
         for line in f:
-            l=line.split()    
-            output.append(l[1])
+            value = line.split()[column_number-1]
+            output.append(float(value))
     return output
 
 def test_read_column():
@@ -284,8 +284,7 @@ def test_read_column():
     import tempfile
     import os
 
-    text = """
-1   0.1  0.001
+    text = """1   0.1  0.001
 2   0.2  0.002
 3   0.3  0.003
 4   0.4  0.004
@@ -306,14 +305,21 @@ def test_read_column():
 
 # ------------------------------------------------------------------------------
 def character_statistics(file_name):
-    from string import ascii_lowercase
-    with open(file) as f:
-        text = s.lower(f.read().strip())
-        dic = {}
-        for x in ascii_lowercase:
-            dic[x] = text.count(x)
-...
- 
+    d = {}
+    with open(file_name, 'r') as f:
+        for c in f.read().lower():
+            if c.isalpha():
+                if c in d:
+                    d[c] += 1
+                else:
+                    d[c] = 1
+    # convert dictionary into a list of tuples
+    l = list(d.items())
+    # reverse sort list on the second items of tuples
+    l = sorted(l, key=lambda x: x[1], reverse=True)
+    most = l[0][0]
+    least = l[-1][0]
+    return (most, least) 
 
 def test_character_statistics():
 
